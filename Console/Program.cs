@@ -1,4 +1,5 @@
-﻿using Businnes.Concrete;
+﻿using Business.Constants;
+using Businnes.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
@@ -12,15 +13,32 @@ internal class Program
 
         CarManager carManager = new CarManager(new EfCarDal());
 
+        var result = carManager.GetCarDetails();
 
-        foreach (var car1 in carManager.GetCarDetails())
+        if (result.Success==true)
         {
-            Console.WriteLine(car1.BrandName + " " + car1.ColorName);
+            foreach (var car in result.Data)
+            {
+                Console.WriteLine(car.CarName + "/" + car.ColorName);
+
+            }
+
         }
+        else
+        {
+
+            Console.WriteLine(result.Message);
+        }
+
+        //foreach (var car in carManager.GetCarDetails().Data)
+        //{
+        //    Console.WriteLine(car.CarName + "/" + car.ColorName);
+        //}
+
 
         //Car car = new Car();
 
-        
+
         //car.Name = "Ford Yenilenmedi";
         //car.DailyPrice = 500;
         //car.BrandId = 1;
@@ -32,7 +50,7 @@ internal class Program
 
 
 
-       
+
 
 
 
